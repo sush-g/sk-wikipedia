@@ -1,0 +1,28 @@
+﻿{
+  "name": "sk-wikipedia",
+  "version": "0.0.1",
+  "description": "Open project to get clean access to Wikipedia services. (Please read the source for docs)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sushant711/sk-wikipedia.git"
+  },
+  "dependencies": {
+    "superagent": "0.16.0",
+    "underscore": "1.5.2",
+    "async": "0.2.9"
+  },
+  "keywords": [
+    "utils",
+    "wikipedia"
+  ],
+  "author": "sushant711",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sushant711/sk-wikipedia/issues"
+  },
+  "homepage": "https://github.com/sushant711/sk-wikipedia"
+}
