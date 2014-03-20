@@ -71,6 +71,8 @@ var fetch_category_members = function(cmtitle, options, callback) {
 	);
 };
 
+exports.fetch_category_members = fetch_category_members;
+
 // fetch_category_members("Category:Space_adventure_films", {}, function (err, data) {
 // 	if (err) {
 // 		console.log(err);

@@ -1,6 +1,6 @@
 ﻿{
   "name": "sk-wikipedia",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Open project to get clean access to Wikipedia services. (Please read the source for docs)",
   "main": "index.js",
   "scripts": {
