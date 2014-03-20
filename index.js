@@ -14,15 +14,15 @@ var CATEGORY_PARAMS = {
 var fetch_category_members = function(cmtitle, options, callback) {
 	options = options || {};
 
+	if (options.cmtype == 'subcat') {
+		options.cmnamespace = 14;
+		options.cmprop = options.cmprop || 'title';
+	}
+
 	options.cmtype = options.cmtype || 'page';
 	options.cmprop = options.cmprop || 'ids';
 	options.cmlimit = options.cmlimit || 500;
-
 	options.cmnamespace = options.cmnamespace || 0;
-	
-	if (options.cmtype == 'subcat') {
-		options.cmnamespace = 14;
-	}
 
 	var queryOptions = {
 		cmtitle: cmtitle,
