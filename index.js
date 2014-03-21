@@ -101,11 +101,11 @@ var fetch_category_members_r = function (cmtitle, options, callback) {
 exports.fetch_category_members = fetch_category_members;
 exports.fetch_category_members_r = fetch_category_members_r;
 
-fetch_category_members_r("Category:Space_adventure_films", {}, function (err, data) {
-	if (err) {
-		console.log(err);
-		return;
-	} else {
-		console.log(data.query.categorymembers.length);
-	}
-});
+// fetch_category_members_r("Category:Space_adventure_films", {}, function (err, data) {
+// 	if (err) {
+// 		console.log(err);
+// 		return;
+// 	} else {
+// 		console.log(data.query.categorymembers.length);
+// 	}
+// });
