@@ -11,7 +11,7 @@ var CATEGORY_PARAMS = {
 	"redirects": ""
 }
 
-var fetch_category_members = function(cmtitle, options, callback) {
+var fetch_category_members = function (cmtitle, options, callback) {
 	options = options || {};
 
 	if (options.cmtype == 'subcat') {
@@ -71,9 +71,37 @@ var fetch_category_members = function(cmtitle, options, callback) {
 	);
 };
 
-exports.fetch_category_members = fetch_category_members;
+var fetch_category_members_r = function (cmtitle, options, callback) {
+	fetch_category_members(cmtitle, options, function (err, resp) {
+		var subcatOptions = { cmtype: "subcat" };
 
-// fetch_category_members("Category:Space_adventure_films", {}, function (err, data) {
+		fetch_category_members(cmtitle, subcatOptions, function (subcatErr, subcatResp) {
+			if (subcatErr) {
+				callback(subcatErr, null);
+				return;
+			}
+			async.eachSeries(subcatResp.query.categorymembers, function(subcat, cb) {
+				console.log("Subcat fetch", subcat.title);
+				fetch_category_members_r(subcat.title, options, function(err2, resp2) {
+					if (err2) {
+						callback(err2, null);
+						return;
+					}
+					resp.query.categorymembers = resp.query.categorymembers.concat(resp2.query.categorymembers);
+					cb();
+				});
+			}, function () {
+				callback(null, resp);
+			});
+			
+		});
+	});
+};
+
+exports.fetch_category_members = fetch_category_members;
+exports.fetch_category_members_r = fetch_category_members_r;
+
+// fetch_category_members_r("Category:Space_adventure_films", {}, function (err, data) {
 // 	if (err) {
 // 		console.log(err);
 // 		return;
