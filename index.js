@@ -80,9 +80,9 @@ var fetch_category_members_r = function (cmtitle, options, callback) {
 				callback(subcatErr, null);
 				return;
 			}
-			async.eachSeries(subcatResp.query.categorymembers, function(subcat, cb) {
+			async.eachLimit(subcatResp.query.categorymembers, 15, function(subcat, cb) {
 				console.log("Subcat fetch", subcat.title);
-				fetch_category_members_r(subcat.title, options, function(err2, resp2) {
+				fetch_category_members(subcat.title, options, function(err2, resp2) {
 					if (err2) {
 						callback(err2, null);
 						return;
@@ -101,11 +101,11 @@ var fetch_category_members_r = function (cmtitle, options, callback) {
 exports.fetch_category_members = fetch_category_members;
 exports.fetch_category_members_r = fetch_category_members_r;
 
-// fetch_category_members_r("Category:Space_adventure_films", {}, function (err, data) {
-// 	if (err) {
-// 		console.log(err);
-// 		return;
-// 	} else {
-// 		console.log(data.query.categorymembers.length);
-// 	}
-// });
+fetch_category_members_r("Category:Space_adventure_films", {}, function (err, data) {
+	if (err) {
+		console.log(err);
+		return;
+	} else {
+		console.log(data.query.categorymembers.length);
+	}
+});
