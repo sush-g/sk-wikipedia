@@ -9,6 +9,12 @@ var CATEGORY_PARAMS = {
     "list": "categorymembers",
     "format": "json",
     "redirects": ""
+};
+
+var PAGE_PARAMS = {
+    "action": "parse",
+    "format": "json",
+    "prop": "text"
 }
 
 var fetch_category_members = function (cmtitle, options, callback) {
@@ -98,9 +104,37 @@ var fetch_category_members_r = function (cmtitle, options, callback) {
     });
 };
 
+var extract_page_text = function (pageid, options, callback) {
+    options = options || {};
+    var queryOptions = _.extend({}, PAGE_PARAMS, { pageid: pageid });
+
+    if (options.section !== undefined) {
+        queryOptions.section = options.section;
+    }
+
+    request.get(WP_API_BASE)
+        .query(queryOptions)
+        .set({ Accept: 'application/json' })
+        .end(function (res) {
+            if (res.error) {
+                callback(res.error, null);
+            } else {
+                var data = res.body;
+
+                if (data.parse) {
+                    callback(null, data.parse.text["*"]);
+                } else {
+                    callback(data, null);
+                }
+            }
+        });
+};
+
 exports.fetch_category_members = fetch_category_members;
 exports.fetch_category_members_r = fetch_category_members_r;
+exports.extract_page_text = extract_page_text;
 
+// extract_page_text(54173, {section: 0}, function(err,data){console.log(err, data);});
 // fetch_category_members_r("Category:Space_adventure_films", {}, function (err, data) {
 //  if (err) {
 //      console.log(err);
