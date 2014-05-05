@@ -54,7 +54,8 @@ var fetch_category_members = function (cmtitle, options, callback) {
             } else {
                 var data = res.body;
                 var querycontinue = data['query-continue'];
-                if (querycontinue) {
+            
+                if (querycontinue && !options.nofollow) {
                     var cmcontinue = querycontinue.categorymembers.cmcontinue;
                     console.log("Continue with", cmtitle, cmcontinue);
                     options.cmcontinue = cmcontinue;
