@@ -116,6 +116,10 @@ var extract_page_text = function (pageid, options, callback) {
     request.get(WP_API_BASE)
         .query(queryOptions)
         .set({ Accept: 'application/json' })
+        .on('error', function(e) {
+            console.log(e);
+            callback(e, null);
+        })
         .end(function (res) {
             if (res.error) {
                 callback(res.error, null);
